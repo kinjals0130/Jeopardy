@@ -19,13 +19,14 @@ void initialize_game(void)
     strcpy(questions[0].answer, "Object Oriented Programming");
     questions[0].value = 400;
     questions[0].answered = false;
+	numQuestionsDefined++;
 }
 
 // Displays each of the remaining categories and question dollar values that have not been answered
 void display_categories(void)
 {
     // print categories and dollar values for each unanswered question in questions array
-    for (int i = 0; i < (int)sizeof(questions); i++){
+    for (int i = 0; i < numQuestionsDefined; i++){
     	if(!questions[i].answered){
     		printf("%s 0- %d", questions[i].category, questions[i].value);
     	}
