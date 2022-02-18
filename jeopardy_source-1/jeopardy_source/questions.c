@@ -44,15 +44,11 @@ void display_categories(void)
 // Displays the question for the category and dollar value
 void display_question(char *category, int value)
 {	
-	char *questionIndex = '\0';
+	int questionIndex = 0;
 	for (int i = 0; i < numQuestionsDefined; i++){
 		if (strcmp(questions[i].category, category) == 0 && questions[i].value == value){
-			questionIndex = ((char*)&i);
+			printf("%s - $%d", questions[i].question, value);
 		}
-	}
-	
-	if (strcmp(questionIndex,"\0")){
-		printf("%s - %d", questions[atoi(questionIndex)].question, questions[atoi(questionIndex)].value);
 	}
 }
 

@@ -48,12 +48,23 @@ int main(int argc, char *argv[])
     }
     
     char selected_player[BUFFER_LEN] = { 0 };
+    char category[BUFFER_LEN] = { 0 };
+    int value;
     while (true){
     	display_categories();
+        // select player
         do {
-            printf("Enter player name: ");
+            printf("Enter a valid player name: ");
             scanf("%[^\n]%*c", selected_player);
         } while(!player_exists(players, NUM_PLAYERS, selected_player));
+
+        printf("Enter a valid category: ");
+        scanf("%[^\n]%*c", category);
+
+        printf("Enter a valid dollar value associated to a category: ");
+        scanf("%d", &value);
+
+        display_question(category, value); 
 	    break;
     }
 
