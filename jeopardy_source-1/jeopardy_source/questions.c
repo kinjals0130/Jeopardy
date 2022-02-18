@@ -19,7 +19,14 @@ void initialize_game(void)
     strcpy(questions[0].answer, "Object Oriented Programming");
     questions[0].value = 400;
     questions[0].answered = false;
-	numQuestionsDefined++;
+    numQuestionsDefined++;
+    
+    strcpy(questions[1].category, categories[1]);
+    strcpy(questions[1].question, "What is the complexity of Merge Sort");
+    strcpy(questions[1].answer, "O(nlogn)");
+    questions[1].value = 600;
+    questions[1].answered = false;
+    numQuestionsDefined++;
 }
 
 // Displays each of the remaining categories and question dollar values that have not been answered
@@ -28,7 +35,7 @@ void display_categories(void)
     // print categories and dollar values for each unanswered question in questions array
     for (int i = 0; i < numQuestionsDefined; i++){
     	if(!questions[i].answered){
-    		printf("%s 0- %d", questions[i].category, questions[i].value);
+    		printf("%s - $%d\n", questions[i].category, questions[i].value);
     	}
     }
     
@@ -38,7 +45,7 @@ void display_categories(void)
 void display_question(char *category, int value)
 {	
 	char *questionIndex = '\0';
-	for (int i = 0; i < (int)sizeof(questions); i++){
+	for (int i = 0; i < numQuestionsDefined; i++){
 		if (strcmp(questions[i].category, category) == 0 && questions[i].value == value){
 			questionIndex = ((char*)&i);
 		}
@@ -52,7 +59,7 @@ void display_question(char *category, int value)
 // Returns true if the answer is correct for the question for that category and dollar value
 bool valid_answer(char *category, int value, char *answer)
 {
-	for (int i = 0; i < (int)sizeof(questions); i++){
+	for (int i = 0; i < numQuestionsDefined; i++){
 		if (strcmp(questions[i].category, category) == 0 && questions[i].value == value){
 			if(strcmp(questions[i].answer, answer) == 0){
 				return true;
@@ -66,7 +73,7 @@ bool valid_answer(char *category, int value, char *answer)
 // Returns true if the question has already been answered
 bool already_answered(char *category, int value)
 {
-	for (int i = 0; i < (int)sizeof(questions); i++){
+	for (int i = 0; i < numQuestionsDefined; i++){
 		if (strcmp(questions[i].category, category) == 0 && questions[i].value == value){
 			return questions[i].answered;
 		}

@@ -34,8 +34,8 @@ typedef struct {
 
 // An array of 12 questions (4 for each category), initialized in initialize_game
 // this may need to be a pointer if you want it set dynamically
-extern question questions[NUM_QUESTIONS];
-int numQuestionsDefined = 0;
+static question questions[NUM_QUESTIONS];
+static numQuestionsDefined = 0;
 
 // Initializes the array of questions for the game
 extern void initialize_game(void);
