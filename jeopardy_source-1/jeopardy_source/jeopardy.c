@@ -47,10 +47,20 @@ int main(int argc, char *argv[])
     	players[i].score = 0;
     }
     
-    char selected_player[BUFFER_LEN] = { 0 };
-    char category[BUFFER_LEN] = { 0 };
-    int value;
+    // Perform an infinite loop getting command input from users until game ends
     while (true){
+        // if all the questions defined have been answered exit the game
+        if (allQuestionsAnswered()){
+            break;
+        }
+        // reset vars for each iteration of the loop
+        char selected_player[BUFFER_LEN] = { 0 };
+        char category[BUFFER_LEN] = { 0 };
+        int value;
+        char answer[BUFFER_LEN] = { 0 };
+
+        // display categories
+        printf("-----------Categoies-----------\n");
     	display_categories();
         // select player
         do {
@@ -62,13 +72,23 @@ int main(int argc, char *argv[])
         scanf("%[^\n]%*c", category);
 
         printf("Enter a valid dollar value associated to a category: ");
-        scanf("%d", &value);
-
+        scanf("%d%*c", &value);
+      
+        // display question for given category and value
         display_question(category, value); 
-	    break;
+        printf("Enter answer starting with the prefix 'what is' or 'who is': ");
+        // take input after prefix who is or what is
+        scanf("%*s is %[^\n]%*c", answer);
+        // if the answer is valid display 'Correct' otherwise display 'Inncorrect'
+        if (valid_answer(category, value, answer)) {
+            printf("Correct\n");
+            update_score(players, NUM_PLAYERS, selected_player, value);
+        }
+        else {
+            printf("Inncorrect\n");
+        }
     }
 
-    // Perform an infinite loop getting command input from users until game ends
     /*while (fgets(buffer, BUFFER_LEN, stdin) != NULL)
     {
         //display_categories();

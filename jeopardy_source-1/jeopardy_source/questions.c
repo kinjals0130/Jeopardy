@@ -35,7 +35,7 @@ void display_categories(void)
     // print categories and dollar values for each unanswered question in questions array
     for (int i = 0; i < numQuestionsDefined; i++){
     	if(!questions[i].answered){
-    		printf("%s - $%d\n", questions[i].category, questions[i].value);
+    		printf("%s - $%d\n\n", questions[i].category, questions[i].value);
     	}
     }
     
@@ -47,7 +47,8 @@ void display_question(char *category, int value)
 	int questionIndex = 0;
 	for (int i = 0; i < numQuestionsDefined; i++){
 		if (strcmp(questions[i].category, category) == 0 && questions[i].value == value){
-			printf("%s - $%d", questions[i].question, value);
+			printf("%s - $%d\n", questions[i].question, value);
+			break;
 		}
 	}
 }
@@ -58,12 +59,16 @@ bool valid_answer(char *category, int value, char *answer)
 	for (int i = 0; i < numQuestionsDefined; i++){
 		if (strcmp(questions[i].category, category) == 0 && questions[i].value == value){
 			if(strcmp(questions[i].answer, answer) == 0){
+				questions[i].answered = true;
+				numQuestionsAnswered++;
 				return true;
 			}
+			questions[i].answered = true;
+			printf ("Answer: %s", questions[i].answer);
 			return false;
 		}
 	}
-    	return false;
+    return false;
 }
 
 // Returns true if the question has already been answered
@@ -75,4 +80,12 @@ bool already_answered(char *category, int value)
 		}
 	}
     	return false;
+}
+
+bool allQuestionsAnswered(void) 
+{
+	if (numQuestionsAnswered == numQuestionsDefined) {
+		return true;
+	}
+	return false;
 }
