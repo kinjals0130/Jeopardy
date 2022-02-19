@@ -17,7 +17,6 @@ bool player_exists(player *players, int num_players, char *name)
 		if (strcmp(players[i].name, name) == 0){
 			return true; 
 		}
-		
 	}
 	return false;
 }

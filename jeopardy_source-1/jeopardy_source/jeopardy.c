@@ -17,8 +17,6 @@
 #define BUFFER_LEN 256
 #define NUM_PLAYERS 4
 
-// Put global environment variables here
-
 // Processes the answer from the user containing what is or who is and tokenizes it to retrieve the answer.
 void tokenize(char *input, char **tokens);
 
@@ -48,9 +46,6 @@ int main(int argc, char *argv[])
 {
     // An array of 4 players, may need to be a pointer if you want it set dynamically
     player players[NUM_PLAYERS];
-    
-    // Input buffer and and commands
-    //char buffer[BUFFER_LEN] = { 0 };
 
     // Display the game introduction and initialize the questions
     initialize_game();
@@ -78,23 +73,25 @@ int main(int argc, char *argv[])
         char answer[BUFFER_LEN] = { 0 };
 
         // display categories
-        printf("-----------Categoies-----------\n");
+        printf("-----------Categories-----------\n");
     	display_categories();
         printf("\n");
+        
         // select player
         do {
             printf("Enter a valid player name: ");
             scanf("%[^\n]%*c", selected_player);
         } while(!player_exists(players, NUM_PLAYERS, selected_player));
-
-        printf("Enter a valid category: ");
-        scanf("%[^\n]%*c", category);
-
-        printf("Enter a valid dollar value associated to a category: ");
-        scanf("%d%*c", &value);
-      
+        
         // display question for given category and value
-        display_question(category, value); 
+        do {
+            printf("Enter a valid category: ");
+            scanf("%[^\n]%*c", category);
+
+            printf("Enter a valid dollar value associated to a category: ");
+            scanf("%d%*c", &value);
+        } while(!display_question(category, value));
+        
         printf("Enter answer starting with the prefix 'what is' or 'who is': ");
         // take input after prefix who is or what is
         scanf("%*s is %[^\n]%*c", answer);

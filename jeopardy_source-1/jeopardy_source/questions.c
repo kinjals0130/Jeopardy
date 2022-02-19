@@ -42,15 +42,17 @@ void display_categories(void)
 }
 
 // Displays the question for the category and dollar value
-void display_question(char *category, int value)
+bool display_question(char *category, int value)
 {	
 	int questionIndex = 0;
 	for (int i = 0; i < numQuestionsDefined; i++){
 		if (strcmp(questions[i].category, category) == 0 && questions[i].value == value){
 			printf("%s - $%d\n", questions[i].question, value);
-			break;
+			return true;
 		}
 	}
+	printf("Incorrect input\n");
+	return false;
 }
 
 // Returns true if the answer is correct for the question for that category and dollar value
@@ -58,12 +60,11 @@ bool valid_answer(char *category, int value, char *answer)
 {
 	for (int i = 0; i < numQuestionsDefined; i++){
 		if (strcmp(questions[i].category, category) == 0 && questions[i].value == value){
+			questions[i].answered = true;
+			numQuestionsAnswered++;
 			if(strcmp(questions[i].answer, answer) == 0){
-				questions[i].answered = true;
-				numQuestionsAnswered++;
 				return true;
 			}
-			questions[i].answered = true;
 			printf ("Answer: %s\n", questions[i].answer);
 			return false;
 		}
