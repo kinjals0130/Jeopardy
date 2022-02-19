@@ -35,7 +35,7 @@ void display_categories(void)
     // print categories and dollar values for each unanswered question in questions array
     for (int i = 0; i < numQuestionsDefined; i++){
     	if(!questions[i].answered){
-    		printf("%s - $%d\n\n", questions[i].category, questions[i].value);
+    		printf("%s - $%d\n", questions[i].category, questions[i].value);
     	}
     }
     
@@ -64,7 +64,7 @@ bool valid_answer(char *category, int value, char *answer)
 				return true;
 			}
 			questions[i].answered = true;
-			printf ("Answer: %s", questions[i].answer);
+			printf ("Answer: %s\n", questions[i].answer);
 			return false;
 		}
 	}

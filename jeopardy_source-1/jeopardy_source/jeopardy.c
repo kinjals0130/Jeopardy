@@ -23,7 +23,25 @@
 void tokenize(char *input, char **tokens);
 
 // Displays the game results for each player, their name and final score, ranked from first to last place
-void show_results(player *players, int num_players);
+void show_results(player *players, int num_players) {
+    // sort the players array in decending order of score
+    for (int i = 0; i < num_players; i++) {
+        player maxScore = players[i];
+        for (int j = i + 1; j < num_players; j++) {
+            if (players[j].score > maxScore.score) {
+                player temp = players[j];
+                players[j] = maxScore;
+                maxScore = temp;
+                players[i] = maxScore;
+                
+            }
+        }
+    }
+
+    for (int i = 0; i < num_players; i++) {
+        printf("%s - $%d\n", players[i].name, players[i].score);
+    }
+}
 
 
 int main(int argc, char *argv[])
@@ -62,6 +80,7 @@ int main(int argc, char *argv[])
         // display categories
         printf("-----------Categoies-----------\n");
     	display_categories();
+        printf("\n");
         // select player
         do {
             printf("Enter a valid player name: ");
@@ -88,20 +107,7 @@ int main(int argc, char *argv[])
             printf("Inncorrect\n");
         }
     }
-
-    /*while (fgets(buffer, BUFFER_LEN, stdin) != NULL)
-    {
-        //display_categories();
-        break;
-        // Call functions from the questions and players source files
-	for (int i = 0; i < (int)sizeof(questions); i++){
-		if (!questions[i].answered){
-			printf("%s - $%d", questions[i].question, questions[i].value);
-		} 
-	}
-        // Execute the game until all questions are answered
-
-        // Display the final results and exit
-    }*/
+    printf("-----------Final Scores-----------\n");
+    show_results(players, NUM_PLAYERS);
     return EXIT_SUCCESS;
 }
